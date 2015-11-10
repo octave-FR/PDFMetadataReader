@@ -91,7 +91,7 @@ for meta in tab_values_raw :
 			#on transforme en int puis on join la liste pour avoir une chaine de caractere
 			value = "".join([chr(int(buf_value[y], 16)) for y in range(0, len(buf_value))])
 
-			#print avec un filtre sur la table ascii (de [ESAPCE] à [TILDE])
+			#print avec un filtre sur la table ascii (de [ESAPCE] à [TILDE]) ##FIXME: probleme d'encodage pour les caracteres accentué
 			print name + " : " + re.sub('[^ -~]', '', value)
 	else :
 
@@ -104,6 +104,6 @@ for meta in tab_values_raw :
 			#sinon les données sont en clair 
 			line = " ".join(meta.replace("\\", '').split("(")).replace(")", '').split(" ") #permet de netoyer la chaine de caractere
 			
-			#print avec un filtre sur la table ascii (de [ESAPCE] à [TILDE])
+			#print avec un filtre sur la table ascii (de [ESAPCE] à [TILDE]) ##FIXME: probleme d'encodage pour les caracteres accentué
 			print line[0] + " : " + re.sub('[^ -~]', ''," ".join(line[1:]))
 
