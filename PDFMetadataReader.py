@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# -*- coding: iso-8859-15 -*-
+# -*- coding: utf-8 -*-
 
 import sys, re, datetime
 	
@@ -88,7 +88,8 @@ for meta in tab_values_raw :
 			#on transforme en int puis on join la liste pour avoir une chaine de caractere
 			value = "".join([chr(int(buf_value[y], 16)) for y in range(0, len(buf_value), 2)])
 
-			print name + " : " + value
+			#print avec un filtre sur la table ascii (de [ESAPCE] à [TILDE])
+			print name + " : " + re.sub('[^ -~]', '', value)
 	else :
 
 		#si on trouve la string "D:", nous avons une information de date
@@ -99,5 +100,7 @@ for meta in tab_values_raw :
 		else :
 			#sinon les données sont en clair 
 			line = " ".join(meta.replace("\\", '').split("(")).replace(")", '').split(" ") #permet de netoyer la chaine de caractere
-			print line[0] + " : " + " ".join(line[1:])
+			
+			#print avec un filtre sur la table ascii (de [ESAPCE] à [TILDE])
+			print line[0] + " : " + re.sub('[^ -~]', ''," ".join(line[1:]))
 
