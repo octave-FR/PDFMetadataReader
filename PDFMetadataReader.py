@@ -82,11 +82,14 @@ for meta in tab_values_raw :
 		value_raw = meta.split('<')[1].replace('>', '')
 		
 		if value_raw[:4] == "FEFF" :
-			#on doit prendre 2 caractere sur 2 XX..XX..XX..XX et on ne prend pas les 3 premieres cases qui represente le FE,FF,00
-			buf_value = ['0x'+value_raw[meta:meta+2] for meta in range(0, len(value_raw), 2)][3:]
-		
+			#on enleve les premiers caracteres (FEFF00)
+			value_raw = value_raw[6:]
+
+			#on doit prendre 2 caractere sur 2 XX..XX..XX..XX 
+			buf_value = [value_raw[i:i+2] for i in range(0, len(value_raw), 4)]
+
 			#on transforme en int puis on join la liste pour avoir une chaine de caractere
-			value = "".join([chr(int(buf_value[y], 16)) for y in range(0, len(buf_value), 2)])
+			value = "".join([chr(int(buf_value[y], 16)) for y in range(0, len(buf_value))])
 
 			#print avec un filtre sur la table ascii (de [ESAPCE] à [TILDE])
 			print name + " : " + re.sub('[^ -~]', '', value)
