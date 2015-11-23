@@ -43,7 +43,7 @@ if data[:4] != "%PDF" :
 	exit()
 
 #recherche du champ indiquant l'emplacement de la zone d'info
-groups = re.search(r'/Info \d{1,3} \d{1} R', data)
+groups = re.search(r'/Info \d+ \d{1} R', data)
 
 #split par "endobj" et recherche de la zone avec nos infos
 for raw_meta in data.split("endobj") :
